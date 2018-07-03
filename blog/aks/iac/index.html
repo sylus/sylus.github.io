@@ -203,8 +203,8 @@ az group deployment create -n aks-managed-vnet \
 <p>Grant the AKS cluster Service Principal access to our custom virtual network using the resource group.</p>
 az ad sp create-for-rbac --name aks-sylus
 az role assignment create --role=Contributor \
-                          --scope=/subscriptions/<SUBSCRIPTION ID>/resourceGroups/${AKS_VNET_RG} \
-                          --assignee <SP CLIENTID>
+                          --scope=/subscriptions/SUBSCRIPTION_ID/resourceGroups/${AKS_VNET_RG} \
+                          --assignee SP_CLIENTID
 
 <h1 id="create-aks-cluster">Create AKS cluster</h1>
 

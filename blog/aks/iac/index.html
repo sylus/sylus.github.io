@@ -158,7 +158,7 @@ Notably the AKS workflow in the Azure portal has been noticably improved and for
   <polyline points="12 6 12 12 15 15"/>
   
 </svg>
-2 mins read
+One min read
 </span>
 
 
@@ -179,7 +179,7 @@ Notably the AKS workflow in the Azure portal has been noticably improved and for
 <p>Notably the <strong>AKS</strong> workflow in the Azure portal has been noticably improved and for quick one-off installations I would recommend going that route. Of course for production type deployments always following the infrastructure as code methodology is indeed the way to go! The following templates setup a vnet in a separate &ldquo;production&rdquo; resource group where the subnet is given to the actual <strong>AKS</strong> deployment.</p>
 
 <ul>
-<li><a href="https://github.com/govcloud/aks-iac" target="_blank">AKS ARM templates</a></li>
+<li>[AKS ARM templates][aks-arm]</li>
 </ul>
 
 <h2 id="create-vnet-resources">Create VNET resources</h2>
@@ -187,67 +187,6 @@ Notably the AKS workflow in the Azure portal has been noticably improved and for
 <p>Specify the name of your resource group that the custom virtual network resides in.</p>
 export AKS_VNET_RG=network-production-rg
 export AKS_VNET_LOCATION=eastus
-
-<p>If the resouce group was not created beforehand you can simply create it now.</p>
-az group create -n ${AKS_VNET_RG} \
-                -l ${AKS_VNET_LOCATION}
-
-<p>We can now instantiate the custom vnet template that will create both a local and containers subnet.</p>
-az group deployment create -n aks-managed-vnet \
-                           -g ${AKS_VNET_RG} \
-                           --template-file kube-vnet.json \
-                           --parameters kube-vnet.parameters.json
-
-<h2 id="service-principal">Service Principal</h2>
-
-<p>Grant the AKS cluster Service Principal access to our custom virtual network using the resource group.</p>
-az ad sp create-for-rbac --name aks-sylus
-az role assignment create --role=Contributor \
-                          --scope=/subscriptions/SUBSCRIPTION_ID/resourceGroups/${AKS_VNET_RG} \
-                          --assignee SP_CLIENTID
-
-<h1 id="create-aks-cluster">Create AKS cluster</h1>
-
-<p>In order to create a managed AKS cluster leveraging the custom vnet simply fill out the missing parameters in the <code>kube-managed.parameters.json</code> file. These parameters include but are not limited to the following:</p>
-
-<ul>
-<li>dnsPrefix</li>
-<li>resourceName</li>
-<li>servicePrincipalClientId</li>
-<li>servicePrincipalClientSecret</li>
-<li>sshRSAPublicKey</li>
-<li>vnetSubnetID</li>
-</ul>
-export AKS_RG=aks-sylus-rg
-export AKS_NAME=aks-managed-sylus
-az group create -n ${AKS_RG} \
-                -l ${AKS_VNET_LOCATION}
-az group deployment create -n ${AKS_NAME} \
-                           -g ${AKS_RG} \
-                          --template-file kube-managed.json \
-                          --parameters kube-managed.parameters.json
-
-<h1 id="common-operations">Common Operations</h1>
-
-<p>Establish the kubeconfig context and retrieve cluster configuration.</p>
-export AKS_RG=aks-sylus-rg
-export AKS_NAME=aks-managed-sylus
-az aks get-credentials --resource-group ${AKS_RG} \
-                       --name ${AKS_NAME}
-
-<p>Similarly to <code>kubectl proxy</code> with launch and open the Kubernetes dashboard.</p>
-az aks browse --resource-group ${AKS_RG} \
-              --name ${AKS_NAME}
-
-<p>Will delete the managed cluster service alongside with all its dependencies.</p>
-az group delete --name ${AKS_RG}
-
-<p>This will enable dev spaces for the deployed AKS cluster.</p>
-az aks use-dev-spaces -g ${AKS_RG} \
-                      -n ${AKS_NAME} \
-                      -s develop/sylus -y
-
-<!-- Links Referenced -->
 
 </div>
 

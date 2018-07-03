@@ -4,105 +4,32 @@
   
   <url>
     <loc>http://sylus.ca/</loc>
-    <lastmod>2017-09-28T08:00:00+06:00</lastmod>
+    <lastmod>2018-07-01T17:30:00+06:00</lastmod>
   </url>
   
   <url>
-    <loc>http://sylus.ca/docs/</loc>
-    <lastmod>2018-03-29T09:00:00+06:00</lastmod>
+    <loc>http://sylus.ca/blog/</loc>
+    <lastmod>2018-07-01T17:30:00+06:00</lastmod>
   </url>
   
   <url>
-    <loc>http://sylus.ca/typography/</loc>
-    <lastmod>2017-09-28T08:00:00+06:00</lastmod>
+    <loc>http://sylus.ca/resume/</loc>
   </url>
   
   <url>
-    <loc>http://sylus.ca/about/</loc>
+    <loc>http://sylus.ca/blog/aks/iac/</loc>
+    <lastmod>2018-07-01T17:30:00+06:00</lastmod>
   </url>
   
   <url>
-    <loc>http://sylus.ca/docs/comments-support/</loc>
-    <lastmod>2018-03-29T09:00:00+06:00</lastmod>
+    <loc>http://sylus.ca/categories/aks/</loc>
+    <lastmod>2018-07-01T17:30:00+06:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://sylus.ca/docs/emoji-support/</loc>
-    <lastmod>2018-02-27T21:00:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/mathjax-support/</loc>
-    <lastmod>2018-02-27T18:00:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/sidebar/</loc>
-    <lastmod>2018-03-29T05:20:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/widgets/</loc>
-    <lastmod>2018-04-12T02:30:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/shortcodes/</loc>
-    <lastmod>2017-10-05T20:00:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/cover-image/</loc>
-    <lastmod>2017-09-30T14:00:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/translation/</loc>
-    <lastmod>2017-09-27T14:00:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/syntax-highlighting/</loc>
-    <lastmod>2017-09-27T12:00:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/menus/</loc>
-    <lastmod>2018-04-12T02:30:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/opengraph/</loc>
-    <lastmod>2017-10-11T18:00:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/authors/</loc>
-    <lastmod>2017-10-11T17:30:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/config-file/</loc>
-    <lastmod>2018-02-08T15:15:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/updating/</loc>
-    <lastmod>2018-02-08T14:45:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/installation/</loc>
-    <lastmod>2018-02-08T15:00:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/docs/res/</loc>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/tags/authors/</loc>
-    <lastmod>2017-10-11T17:30:00+06:00</lastmod>
+    <loc>http://sylus.ca/tags/aks/</loc>
+    <lastmod>2018-07-01T17:30:00+06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -111,65 +38,36 @@
   </url>
   
   <url>
+    <loc>http://sylus.ca/tags/azure/</loc>
+    <lastmod>2018-07-01T17:30:00+06:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://sylus.ca/categories/</loc>
+    <lastmod>2018-07-01T17:30:00+06:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://sylus.ca/tags/chroma/</loc>
-    <lastmod>2017-09-27T12:00:00+06:00</lastmod>
-    <priority>0</priority>
+    <loc>http://sylus.ca/tags/docker/</loc>
   </url>
   
   <url>
-    <loc>http://sylus.ca/tags/config/</loc>
-    <lastmod>2018-03-29T09:00:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/categories/features/</loc>
-    <lastmod>2018-03-29T09:00:00+06:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/tags/i18n/</loc>
-    <lastmod>2017-09-27T14:00:00+06:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/tags/menus/</loc>
-    <lastmod>2018-04-12T02:30:00+06:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/authors/muniftanjim/</loc>
-    <lastmod>2017-09-28T08:00:00+06:00</lastmod>
-    <priority>0</priority>
+    <loc>http://sylus.ca/tags/kubernetes/</loc>
   </url>
   
   <url>
     <loc>http://sylus.ca/tags/og/</loc>
-    <lastmod>2017-10-11T18:00:00+06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/categories/others/</loc>
-    <lastmod>2018-02-08T15:15:00+06:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
     <loc>http://sylus.ca/page/</loc>
-    <lastmod>2017-09-28T08:00:00+06:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://sylus.ca/tags/pygments/</loc>
-    <lastmod>2017-09-27T12:00:00+06:00</lastmod>
+    <loc>http://sylus.ca/tags/resume/</loc>
     <priority>0</priority>
   </url>
   
@@ -179,32 +77,14 @@
   </url>
   
   <url>
-    <loc>http://sylus.ca/tags/shortcode/</loc>
-    <lastmod>2017-10-05T20:00:00+06:00</lastmod>
+    <loc>http://sylus.ca/authors/sylus/</loc>
+    <lastmod>2018-07-01T17:30:00+06:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://sylus.ca/tags/</loc>
-    <lastmod>2017-10-11T17:30:00+06:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/tags/translation/</loc>
-    <lastmod>2017-09-27T14:00:00+06:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/categories/tutorial/</loc>
-    <lastmod>2018-02-08T14:45:00+06:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/tags/widgets/</loc>
-    <lastmod>2018-04-12T02:30:00+06:00</lastmod>
+    <lastmod>2018-07-01T17:30:00+06:00</lastmod>
     <priority>0</priority>
   </url>
   

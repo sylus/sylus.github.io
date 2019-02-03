@@ -6,7 +6,7 @@
     <description>Recent content in Home on William Hearn</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Jul 2018 06:00:00 +0600</lastBuildDate>
+    <lastBuildDate>Thu, 17 Jan 2019 22:00:27 -0400</lastBuildDate>
     
 	<atom:link href="http://sylus.ca/index.xml" rel="self" type="application/rss+xml" />
     
@@ -18,6 +18,15 @@
       
       <guid>http://sylus.ca/resum%C3%A9/</guid>
       <description>Personal Highlights  GoC Cloud Native Working Group  Meetup Website GitHub Youtube  Open Source involvement:  Official Docker images (Drupal Alpine) Official Kubernetes Helm charts (Hadoop, NiFi, Kylo) Extensions to Azure ACS Engine (Chocolately)  Maintainer of Drupal WxT 7&amp;frasl;8  Drupal 7 WxT Drupal 8 WxT  Technical Architect:  Open Government Portal (Drupal 7&amp;frasl;8) Statistics Canada Portal (Drupal 7&amp;frasl;8)   Education Honors, Bachelor of Computer Science, Carleton University // Minor in Psychology // September 2006 – August 2010</description>
+    </item>
+    
+    <item>
+      <title>Deploying Windows Apps with Kubernetes</title>
+      <link>http://sylus.ca/blog/windows/</link>
+      <pubDate>Thu, 17 Jan 2019 22:00:27 -0400</pubDate>
+      
+      <guid>http://sylus.ca/blog/windows/</guid>
+      <description>Windows and Kubernetes Windows is reaching near parity with Linux in terms of its support for Kubernetes. Due to this we can support various types of Windows workloads in a container and consequently to run in Kubernetes cluster. During the course of this presentation, we&amp;rsquo;ll go over some of the key considerations such as handling secrets, required node selectors, and other common differences you may encounter in clusters with Windows &amp;amp; Linux nodes.</description>
     </item>
     
     <item>

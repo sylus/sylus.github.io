@@ -20,5 +20,23 @@
       <description></description>
     </item>
     
+    <item>
+      <title>devops</title>
+      <link>http://sylus.ca/categories/devops/</link>
+      <pubDate>Thu, 17 Jan 2019 22:00:27 -0400</pubDate>
+      
+      <guid>http://sylus.ca/categories/devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>http://sylus.ca/categories/kubernetes/</link>
+      <pubDate>Thu, 17 Jan 2019 22:00:27 -0400</pubDate>
+      
+      <guid>http://sylus.ca/categories/kubernetes/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

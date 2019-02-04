@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kops on William Hearn</title>
+    <link>http://sylus.ca/tags/kops/</link>
+    <description>Recent content in kops on William Hearn</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 03 Feb 2019 23:41:45 -0500</lastBuildDate>
+    
+	<atom:link href="http://sylus.ca/tags/kops/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Leveraging KOPS with Amazon</title>
+      <link>http://sylus.ca/blog/kops/</link>
+      <pubDate>Sun, 03 Feb 2019 23:41:45 -0500</pubDate>
+      
+      <guid>http://sylus.ca/blog/kops/</guid>
+      <description>The following just documents how to quickly setup a Kubernetes cluster on Amazon infrastructure.
+Unfortunately EKS still needs a bit of work and since you still have to play for the managed control plane, there is very little downside to using KOPS to instantiate the infrastructure.
+KOPS  Support for variety of Kubernetes features such as feature gates Auto provisoned nodes More flexibility over Kubernetes versions  Steps 1) Proceed to account management screen and click &amp;ldquo;Programmatic Access Screen&amp;rdquo; 2) Set up the AWS cli against IAM</description>
+    </item>
+    
+  </channel>
+</rss>

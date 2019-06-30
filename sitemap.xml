@@ -17,8 +17,55 @@
   </url>
   
   <url>
+    <loc>http://sylus.ca/authors/</loc>
+    <lastmod>2019-02-03T23:41:45-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://sylus.ca/categories/</loc>
+    <lastmod>2019-02-03T23:41:45-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://sylus.ca/blog/kops/</loc>
     <lastmod>2019-02-03T23:41:45-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://sylus.ca/tags/</loc>
+    <lastmod>2019-02-03T23:41:45-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sylus.ca/tags/amazon/</loc>
+    <lastmod>2019-02-03T23:41:45-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sylus.ca/tags/kops/</loc>
+    <lastmod>2019-02-03T23:41:45-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sylus.ca/categories/kubernetes/</loc>
+    <lastmod>2019-02-03T23:41:45-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sylus.ca/authors/sylus/</loc>
+    <lastmod>2019-02-03T23:41:45-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sylus.ca/tags/.net/</loc>
+    <lastmod>2019-01-17T22:00:27-04:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -27,12 +74,19 @@
   </url>
   
   <url>
-    <loc>http://sylus.ca/blog/aks/iac/</loc>
-    <lastmod>2018-07-01T17:30:00+06:00</lastmod>
+    <loc>http://sylus.ca/tags/containers/</loc>
+    <lastmod>2019-01-17T22:00:27-04:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://sylus.ca/tags/.net/</loc>
+    <loc>http://sylus.ca/categories/devops/</loc>
+    <lastmod>2019-01-17T22:00:27-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://sylus.ca/tags/windows/</loc>
     <lastmod>2019-01-17T22:00:27-04:00</lastmod>
     <priority>0</priority>
   </url>
@@ -44,11 +98,13 @@
   </url>
   
   <url>
-    <loc>http://sylus.ca/authors/</loc>
+    <loc>http://sylus.ca/blog/aks/iac/</loc>
+    <lastmod>2018-07-01T17:30:00+06:00</lastmod>
   </url>
   
   <url>
-    <loc>http://sylus.ca/categories/</loc>
+    <loc>http://sylus.ca/tags/azure/</loc>
+    <lastmod>2018-07-01T17:30:00+06:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -75,61 +131,7 @@
   </url>
   
   <url>
-    <loc>http://sylus.ca/tags/</loc>
-    <lastmod>2019-01-17T22:00:27-04:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/tags/amazon/</loc>
-    <lastmod>2019-02-03T23:41:45-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/tags/azure/</loc>
-    <lastmod>2018-07-01T17:30:00+06:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/tags/containers/</loc>
-    <lastmod>2019-01-17T22:00:27-04:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/categories/devops/</loc>
-    <lastmod>2019-01-17T22:00:27-04:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/tags/kops/</loc>
-    <lastmod>2019-02-03T23:41:45-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/categories/kubernetes/</loc>
-    <lastmod>2019-02-03T23:41:45-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>http://sylus.ca/tags/resume/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/authors/sylus/</loc>
-    <lastmod>2019-02-03T23:41:45-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://sylus.ca/tags/windows/</loc>
-    <lastmod>2019-01-17T22:00:27-04:00</lastmod>
     <priority>0</priority>
   </url>
   

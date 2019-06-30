@@ -6,18 +6,10 @@
     <description>Recent content in Categories on William Hearn</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Sun, 03 Feb 2019 23:41:45 -0500</lastBuildDate>
     
 	<atom:link href="http://sylus.ca/categories/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>devops</title>
-      <link>http://sylus.ca/categories/devops/</link>
-      <pubDate>Thu, 17 Jan 2019 22:00:27 -0400</pubDate>
-      
-      <guid>http://sylus.ca/categories/devops/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>kubernetes</title>
@@ -25,6 +17,15 @@
       <pubDate>Sun, 03 Feb 2019 23:41:45 -0500</pubDate>
       
       <guid>http://sylus.ca/categories/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>devops</title>
+      <link>http://sylus.ca/categories/devops/</link>
+      <pubDate>Thu, 17 Jan 2019 22:00:27 -0400</pubDate>
+      
+      <guid>http://sylus.ca/categories/devops/</guid>
       <description></description>
     </item>
     

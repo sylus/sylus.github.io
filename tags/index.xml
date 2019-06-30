@@ -6,10 +6,28 @@
     <description>Recent content in Tags on William Hearn</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Jan 2019 22:00:27 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 03 Feb 2019 23:41:45 -0500</lastBuildDate>
     
 	<atom:link href="http://sylus.ca/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>amazon</title>
+      <link>http://sylus.ca/tags/amazon/</link>
+      <pubDate>Sun, 03 Feb 2019 23:41:45 -0500</pubDate>
+      
+      <guid>http://sylus.ca/tags/amazon/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kops</title>
+      <link>http://sylus.ca/tags/kops/</link>
+      <pubDate>Sun, 03 Feb 2019 23:41:45 -0500</pubDate>
+      
+      <guid>http://sylus.ca/tags/kops/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>.net</title>
@@ -21,11 +39,38 @@
     </item>
     
     <item>
+      <title>containers</title>
+      <link>http://sylus.ca/tags/containers/</link>
+      <pubDate>Thu, 17 Jan 2019 22:00:27 -0400</pubDate>
+      
+      <guid>http://sylus.ca/tags/containers/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>windows</title>
+      <link>http://sylus.ca/tags/windows/</link>
+      <pubDate>Thu, 17 Jan 2019 22:00:27 -0400</pubDate>
+      
+      <guid>http://sylus.ca/tags/windows/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>AKS</title>
       <link>http://sylus.ca/tags/aks/</link>
       <pubDate>Sun, 01 Jul 2018 06:00:00 +0600</pubDate>
       
       <guid>http://sylus.ca/tags/aks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>azure</title>
+      <link>http://sylus.ca/tags/azure/</link>
+      <pubDate>Sun, 01 Jul 2018 06:00:00 +0600</pubDate>
+      
+      <guid>http://sylus.ca/tags/azure/</guid>
       <description></description>
     </item>
     
@@ -57,56 +102,11 @@
     </item>
     
     <item>
-      <title>amazon</title>
-      <link>http://sylus.ca/tags/amazon/</link>
-      <pubDate>Sun, 03 Feb 2019 23:41:45 -0500</pubDate>
-      
-      <guid>http://sylus.ca/tags/amazon/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>azure</title>
-      <link>http://sylus.ca/tags/azure/</link>
-      <pubDate>Sun, 01 Jul 2018 06:00:00 +0600</pubDate>
-      
-      <guid>http://sylus.ca/tags/azure/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>containers</title>
-      <link>http://sylus.ca/tags/containers/</link>
-      <pubDate>Thu, 17 Jan 2019 22:00:27 -0400</pubDate>
-      
-      <guid>http://sylus.ca/tags/containers/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>kops</title>
-      <link>http://sylus.ca/tags/kops/</link>
-      <pubDate>Sun, 03 Feb 2019 23:41:45 -0500</pubDate>
-      
-      <guid>http://sylus.ca/tags/kops/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>resume</title>
       <link>http://sylus.ca/tags/resume/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://sylus.ca/tags/resume/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>windows</title>
-      <link>http://sylus.ca/tags/windows/</link>
-      <pubDate>Thu, 17 Jan 2019 22:00:27 -0400</pubDate>
-      
-      <guid>http://sylus.ca/tags/windows/</guid>
       <description></description>
     </item>
     

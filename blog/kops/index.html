@@ -1,208 +1,17 @@
-<!DOCTYPE html>
-<html lang='en'><head>
-  <meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'>
-<meta name='description' content='The following just documents how to quickly setup a Kubernetes cluster on Amazon infrastructure.
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="The following just documents how to quickly setup a Kubernetes cluster on Amazon infrastructure.
 Unfortunately EKS still needs a bit of work and since you still have to play for the managed control plane, there is very little downside to using KOPS to instantiate the infrastructure.
-KOPS  Support for variety of Kubernetes features such as feature gates Auto provisoned nodes More flexibility over Kubernetes versions  Steps 1) Proceed to account management screen and click &ldquo;Programmatic Access Screen&rdquo; 2) Set up the AWS cli against IAM'>
-<meta name='theme-color' content='#0db7ed'>
-
-<meta property='og:title' content='Leveraging KOPS with Amazon • William Hearn'>
-<meta property='og:description' content='The following just documents how to quickly setup a Kubernetes cluster on Amazon infrastructure.
+KOPS  Support for variety of Kubernetes features such as feature gates Auto provisoned nodes More flexibility over Kubernetes versions  Steps  Proceed to account management screen and click &ldquo;Programmatic Access Screen&rdquo; Set up the AWS cli against IAM  aws sts get-session-token --serial-number <arn> --token-code <token> aws configure Take the NS records and put in Azure DNS (NS)for cloud."><meta name=theme-color content="#0db7ed"><meta property="og:title" content="Leveraging KOPS with Amazon • William Hearn"><meta property="og:description" content="The following just documents how to quickly setup a Kubernetes cluster on Amazon infrastructure.
 Unfortunately EKS still needs a bit of work and since you still have to play for the managed control plane, there is very little downside to using KOPS to instantiate the infrastructure.
-KOPS  Support for variety of Kubernetes features such as feature gates Auto provisoned nodes More flexibility over Kubernetes versions  Steps 1) Proceed to account management screen and click &ldquo;Programmatic Access Screen&rdquo; 2) Set up the AWS cli against IAM'>
-<meta property='og:url' content='http://sylus.ca/blog/kops/'>
-<meta property='og:site_name' content='William Hearn'>
-<meta property='og:type' content='article'><meta property='og:image' content='https://www.gravatar.com/avatar/eca9a4ec0967837e98593484bf64424a?s=256'><meta property='article:section' content='blog'><meta property='article:tag' content='kops'><meta property='article:tag' content='amazon'><meta property='article:published_time' content='2019-02-03T23:41:45-05:00'/><meta property='article:modified_time' content='2019-02-03T23:41:45-05:00'/><meta name='twitter:card' content='summary'><meta name='twitter:creator' content='@william_hearn'>
-
-<meta name="generator" content="Hugo 0.55.6" />
-
-  <title>Leveraging KOPS with Amazon • William Hearn</title>
-  <link rel='canonical' href='http://sylus.ca/blog/kops/'>
-  
-  
-  <link rel='icon' href='/favicon.ico'>
-<link rel='stylesheet' href='/assets/css/main.6a060eb7.css'><link rel='stylesheet' href='/css/custom.css'><style>
-:root{--color-accent:#0db7ed;}
-</style>
-
-  
-
-</head>
-<body class='page type-blog has-sidebar'>
-
-  <div class='site'><div id='sidebar' class='sidebar'>
-  <a class='screen-reader-text' href='#main-menu'>Skip to Main Menu</a>
-
-  <div class='container'><section class='widget widget-about sep-after'>
-  <header>
-    
-    <div class='logo'>
-      <a href='/'>
-        <img src='/images/logo.png'>
-      </a>
-    </div>
-    
-    <h2 class='title site-title '>
-      <a href='/'>
-      William Hearn
-      </a>
-    </h2>
-    <div class='desc'>
-    Technical Architect, Cloud Operations @ Statistics Canada
-    </div>
-  </header>
-
-</section>
-<section class='widget widget-taxonomy_cloud sep-after'>
-  <header>
-    <h4 class='title widget-title'>Tags</h4>
-  </header>
-
-  <div class='container list-container'>
-  <ul class='list taxonomy-cloud'><li>
-        <a href='/tags/.net/' style='font-size:1em'>.net</a>
-      </li><li>
-        <a href='/tags/aks/' style='font-size:1em'>AKS</a>
-      </li><li>
-        <a href='/tags/amazon/' style='font-size:1em'>amazon</a>
-      </li><li>
-        <a href='/tags/azure/' style='font-size:1em'>azure</a>
-      </li><li>
-        <a href='/tags/containers/' style='font-size:1em'>containers</a>
-      </li><li>
-        <a href='/tags/kops/' style='font-size:1em'>kops</a>
-      </li><li>
-        <a href='/tags/resume/' style='font-size:1em'>resume</a>
-      </li><li>
-        <a href='/tags/windows/' style='font-size:1em'>windows</a>
-      </li></ul>
-</div>
-
-
-</section>
-</div>
-
-  <div class='sidebar-overlay'></div>
-</div><div class='main'><nav id='main-menu' class='menu main-menu' aria-label='Main Menu'>
-  <div class='container'>
-    <a class='screen-reader-text' href='#content'>Skip to Content</a>
-
-<button id='sidebar-toggler' class='sidebar-toggler' aria-controls='sidebar'>
-  <span class='screen-reader-text'>Toggle Sidebar</span>
-  <span class='open'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="3" y1="12" x2="21" y2="12" />
-  <line x1="3" y1="6" x2="21" y2="6" />
-  <line x1="3" y1="18" x2="21" y2="18" />
-  
-</svg>
-</span>
-  <span class='close'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="18" y1="6" x2="6" y2="18" />
-  <line x1="6" y1="6" x2="18" y2="18" />
-  
-</svg>
-</span>
-</button>
-    <ul><li class='item'>
-        <a href='/'>Home</a>
-      </li><li class='item'>
-        <a href='/blog/'>Blog</a>
-      </li><li class='item'>
-        <a href='/resum%C3%A9/'>Resumé</a>
-      </li><li class='item'>
-        <a href='https://github.com/sylus'>Portfolio</a>
-      </li></ul>
-  </div>
-</nav><div class='header-widgets'>
-        <div class='container'></div>
-      </div>
-
-      <header id='header' class='header site-header'>
-        <div class='container sep-after'>
-          <div class='header-info'><p class='site-title title'>William Hearn</p><p class='desc site-desc'>Technical Architect, Cloud Operations @ Statistics Canada</p>
-          </div>
-        </div>
-      </header>
-
-      <main id='content'>
-
-
-<article lang='en' class='entry'>
-  <header class='header entry-header'>
-  <div class='container sep-after'>
-    <div class='header-info'>
-      <h1 class='title'>Leveraging KOPS with Amazon</h1>
-      
-
-    </div>
-    <div class='entry-meta'>
-  <span class='posted-on'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-  <line x1="16" y1="2" x2="16" y2="6"/>
-  <line x1="8" y1="2" x2="8" y2="6"/>
-  <line x1="3" y1="10" x2="21" y2="10"/>
-  
-</svg>
-<span class='screen-reader-text'>Posted on </span>
-  <time class='entry-date' datetime='2019-02-03T23:41:45-05:00'>2019, Feb 03</time>
-</span>
-
-  <span class='byline'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M21,21V20c0-2.76-4-5-9-5s-9,2.24-9,5v1"/>
-  <path d="M16,6.37A4,4,0,1,1,12.63,3,4,4,0,0,1,16,6.37Z"/>
-  
-</svg>
-<span class='screen-reader-text'> by </span><a href='/authors/sylus'>William Hearn</a></span>
-  
-<span class='reading-time'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <circle cx="12" cy="12" r="10"/>
-  <polyline points="12 6 12 12 15 15"/>
-  
-</svg>
-2 mins read
-</span>
-
-
-</div>
-
-
-  </div>
-</header>
-
-  
-  
-
-  <div class='container entry-content'>
-  
-
-<p>The following just documents how to quickly setup a Kubernetes cluster on Amazon infrastructure.</p>
-
-<p>Unfortunately EKS still needs a bit of work and since you still have to play for the managed control plane, there is very little downside to using KOPS to instantiate the infrastructure.</p>
-
-<h2 id="kops">KOPS</h2>
-
-<ul>
-<li>Support for variety of Kubernetes features such as feature gates</li>
-<li>Auto provisoned nodes</li>
-<li>More flexibility over Kubernetes versions</li>
-</ul>
-
-<h2 id="steps">Steps</h2>
-
-<p>1) Proceed to account management screen and click &ldquo;Programmatic Access Screen&rdquo;
-2) Set up the AWS cli against IAM</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">aws sts get-session-token --serial-number &lt;arn&gt; --token-code &lt;token&gt;
-aws configure</code></pre></div>
-<p>3) Take the NS records and put in Azure DNS (NS)for cloud.statcan.ca and add the 4</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>uuidgen<span style="color:#66d9ef">)</span> <span style="color:#f92672">&amp;&amp;</span> aws route53 create-hosted-zone --profile mfa --name &lt;domain&gt; --caller-reference $ID | jq .DelegationSet.NameServers</code></pre></div>
-<p>4) Set up the initial IAM policies for the <code>kops</code> user</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">aws iam create-group --profile mfa --group-name kops
+KOPS  Support for variety of Kubernetes features such as feature gates Auto provisoned nodes More flexibility over Kubernetes versions  Steps  Proceed to account management screen and click &ldquo;Programmatic Access Screen&rdquo; Set up the AWS cli against IAM  aws sts get-session-token --serial-number <arn> --token-code <token> aws configure Take the NS records and put in Azure DNS (NS)for cloud."><meta property="og:url" content="http://sylus.ca/blog/kops/"><meta property="og:site_name" content="William Hearn"><meta property="og:type" content="article"><meta property="og:image" content="https://www.gravatar.com/avatar/eca9a4ec0967837e98593484bf64424a?s=256"><meta property="article:section" content="blog"><meta property="article:tag" content="kops"><meta property="article:tag" content="amazon"><meta property="article:published_time" content="2019-02-03T23:41:45-05:00"><meta property="article:modified_time" content="2019-02-03T23:41:45-05:00"><meta name=twitter:card content="summary"><meta name=twitter:creator content="@william_hearn"><meta name=generator content="Hugo 0.78.2"><title>Leveraging KOPS with Amazon • William Hearn</title><link rel=canonical href=http://sylus.ca/blog/kops/><link rel=icon href=/favicon.ico><link rel=stylesheet href=/assets/css/main.ab98e12b.css><link rel=stylesheet href=/css/custom.css><style>:root{--color-accent:#0db7ed}</style></head><body class="page type-blog has-sidebar"><div class=site><div id=sidebar class=sidebar><a class=screen-reader-text href=#main-menu>Skip to Main Menu</a><div class=container><section class="widget widget-about sep-after"><header><div class=logo><a href=/><img src=/images/logo.png></a></div><h2 class="title site-title"><a href=/>William Hearn</a></h2><div class=desc>Technical Architect, Cloud Native Team @ Statistics Canada</div></header></section><section class="widget widget-taxonomy_cloud sep-after"><header><h4 class="title widget-title">Tags</h4></header><div class="container list-container"><ul class="list taxonomy-cloud"><li><a href=/tags/amazon/ style=font-size:1em>amazon</a></li><li><a href=/tags/kops/ style=font-size:1em>kops</a></li><li><a href=/tags/resume/ style=font-size:1em>resume</a></li></ul></div></section></div><div class=sidebar-overlay></div></div><div class=main><nav id=main-menu class="menu main-menu" aria-label="Main Menu"><div class=container><a class=screen-reader-text href=#content>Skip to Content</a>
+<button id=sidebar-toggler class=sidebar-toggler aria-controls=sidebar>
+<span class=screen-reader-text>Toggle Sidebar</span>
+<span class=open><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></span><span class=close><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span></button><ul><li class=item><a href=/>Home</a></li><li class=item><a href=/blog/>Blog</a></li><li class=item><a href=/resum%C3%A9/>Resumé</a></li><li class=item><a href=https://github.com/sylus>Portfolio</a></li></ul></div></nav><div class=header-widgets><div class=container></div></div><header id=header class="header site-header"><div class="container sep-after"><div class=header-info><p class="site-title title">William Hearn</p><p class="desc site-desc">Technical Architect, Cloud Native Team @ Statistics Canada</p></div></div></header><main id=content><article lang=en class=entry><header class="header entry-header"><div class="container sep-after"><div class=header-info><h1 class=title>Leveraging KOPS with Amazon</h1></div><div class=entry-meta><span class=posted-on><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class=screen-reader-text>Posted on</span>
+<time class=entry-date datetime=2019-02-03T23:41:45-05:00>2019, Feb 03</time></span>
+<span class=byline><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M21 21V20c0-2.76-4-5-9-5s-9 2.24-9 5v1"/><path d="M16 6.37A4 4 0 1112.63 3 4 4 0 0116 6.37z"/></svg><span class=screen-reader-text>by </span><a href=/authors/sylus>William Hearn</a></span>
+<span class=reading-time><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 15 15"/></svg>2 mins read</span></div></div></header><div class="container entry-content"><p>The following just documents how to quickly setup a Kubernetes cluster on Amazon infrastructure.</p><p>Unfortunately EKS still needs a bit of work and since you still have to play for the managed control plane, there is very little downside to using KOPS to instantiate the infrastructure.</p><h2 id=kops>KOPS</h2><ul><li>Support for variety of Kubernetes features such as feature gates</li><li>Auto provisoned nodes</li><li>More flexibility over Kubernetes versions</li></ul><h2 id=steps>Steps</h2><ol><li>Proceed to account management screen and click &ldquo;Programmatic Access Screen&rdquo;</li><li>Set up the AWS cli against IAM</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>aws sts get-session-token --serial-number &lt;arn&gt; --token-code &lt;token&gt;
+aws configure
+</code></pre></div><ol start=3><li>Take the NS records and put in Azure DNS (NS)for cloud.statcan.ca and add the 4</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>ID<span style=color:#f92672>=</span><span style=color:#66d9ef>$(</span>uuidgen<span style=color:#66d9ef>)</span> <span style=color:#f92672>&amp;&amp;</span> aws route53 create-hosted-zone --profile mfa --name &lt;domain&gt; --caller-reference $ID | jq .DelegationSet.NameServers
+</code></pre></div><ol start=4><li>Set up the initial IAM policies for the <code>kops</code> user</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>aws iam create-group --profile mfa --group-name kops
 aws iam attach-group-policy --profile mfa --policy-arn arn:aws:iam::aws:policy/AmazonEC2FullAccess --group-name kops
 aws iam attach-group-policy --profile mfa --policy-arn arn:aws:iam::aws:policy/AmazonRoute53FullAccess --group-name kops
 aws iam attach-group-policy --profile mfa --policy-arn arn:aws:iam::aws:policy/AmazonS3FullAccess --group-name kops
@@ -210,172 +19,65 @@ aws iam attach-group-policy --profile mfa --policy-arn arn:aws:iam::aws:policy/I
 aws iam attach-group-policy --profile mfa --policy-arn arn:aws:iam::aws:policy/AmazonVPCFullAccess --group-name kops
 aws iam create-user --profile mfa --user-name kops
 aws iam add-user-to-group --profile mfa --user-name kops --group-name kops
-aws iam create-access-key --profile mfa --user-name kops</code></pre></div>
-<p>5) Configure the S3 Bucket to store the etcd state</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">aws s3api create-bucket --profile mfa --bucket k8s-state-store --region ca-central-1 --create-bucket-configuration LocationConstraint<span style="color:#f92672">=</span>ca-central-1
-aws s3api create-bucket --profile mfa --bucket k8s-managed-state-store --region ca-central-1 --create-bucket-configuration LocationConstraint<span style="color:#f92672">=</span>ca-central-1
-aws s3api put-bucket-versioning --profile mfa --bucket k8s-managed-state-store --versioning-configuration Status<span style="color:#f92672">=</span>Enabled --region ca-central-1
-aws s3api put-bucket-encryption --profile mfa --bucket k8s-managed-state-store --server-side-encryption-configuration <span style="color:#e6db74">&#39;\{&#34;Rules&#34;:[{&#34;ApplyServerSideEncryptionByDefault&#34;:{&#34;SSEAlgorithm&#34;:&#34;AES256&#34;}}]}&#39;</span>
-aws s3api put-bucket-encryption --profile mfa --bucket k8s-managed-state-store --server-side-encryption-configuration <span style="color:#e6db74">&#39;{&#34;Rules&#34;:[{&#34;ApplyServerSideEncryptionByDefault&#34;:{&#34;SSEAlgorithm&#34;:&#34;AES256&#34;}}]}&#39;</span></code></pre></div>
-<p>6) Instantiate the Kubernetes cluster</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">export NAME<span style="color:#f92672">=</span>&lt;domain&gt;
-export KOPS_STATE_STORE<span style="color:#f92672">=</span>s3://k8s-managed-state-store
+aws iam create-access-key --profile mfa --user-name kops
+</code></pre></div><ol start=5><li>Configure the S3 Bucket to store the etcd state</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>aws s3api create-bucket --profile mfa --bucket k8s-state-store --region ca-central-1 --create-bucket-configuration LocationConstraint<span style=color:#f92672>=</span>ca-central-1
+aws s3api create-bucket --profile mfa --bucket k8s-managed-state-store --region ca-central-1 --create-bucket-configuration LocationConstraint<span style=color:#f92672>=</span>ca-central-1
+aws s3api put-bucket-versioning --profile mfa --bucket k8s-managed-state-store --versioning-configuration Status<span style=color:#f92672>=</span>Enabled --region ca-central-1
+aws s3api put-bucket-encryption --profile mfa --bucket k8s-managed-state-store --server-side-encryption-configuration <span style=color:#e6db74>&#39;\{&#34;Rules&#34;:[{&#34;ApplyServerSideEncryptionByDefault&#34;:{&#34;SSEAlgorithm&#34;:&#34;AES256&#34;}}]}&#39;</span>
+aws s3api put-bucket-encryption --profile mfa --bucket k8s-managed-state-store --server-side-encryption-configuration <span style=color:#e6db74>&#39;{&#34;Rules&#34;:[{&#34;ApplyServerSideEncryptionByDefault&#34;:{&#34;SSEAlgorithm&#34;:&#34;AES256&#34;}}]}&#39;</span>
+</code></pre></div><ol start=6><li>Instantiate the Kubernetes cluster</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>export NAME<span style=color:#f92672>=</span>&lt;domain&gt;
+export KOPS_STATE_STORE<span style=color:#f92672>=</span>s3://k8s-managed-state-store
 
-kops create cluster <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span> --state<span style="color:#f92672">=</span>s3://k8s-inno-state-store <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span> --zones ca-central-1a,ca-central-1b <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span> --encrypt-etcd-storage <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span> --master-size c4.large <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span> --node-size m5.2xlarge <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span> --ssh-public-key id_rsa.pub <span style="color:#ae81ff">\
-</span><span style="color:#ae81ff"></span> <span style="color:#e6db74">${</span>NAME<span style="color:#e6db74">}</span>
+kops create cluster <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span> --state<span style=color:#f92672>=</span>s3://k8s-inno-state-store <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span> --zones ca-central-1a,ca-central-1b <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span> --encrypt-etcd-storage <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span> --master-size c4.large <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span> --node-size m5.2xlarge <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span> --ssh-public-key id_rsa.pub <span style=color:#ae81ff>\
+</span><span style=color:#ae81ff></span> <span style=color:#e6db74>${</span>NAME<span style=color:#e6db74>}</span>
 
-kops edit cluster <span style="color:#e6db74">${</span>NAME<span style="color:#e6db74">}</span>
+kops edit cluster <span style=color:#e6db74>${</span>NAME<span style=color:#e6db74>}</span>
 additionalPolicies:
 master: |
-  <span style="color:#f92672">[</span>
-    <span style="color:#f92672">{</span>
-      <span style="color:#e6db74">&#34;Effect&#34;</span>: <span style="color:#e6db74">&#34;Allow&#34;</span>,
-      <span style="color:#e6db74">&#34;Action&#34;</span>: <span style="color:#e6db74">&#34;iam:CreateServiceLinkedRole&#34;</span>,
-      <span style="color:#e6db74">&#34;Resource&#34;</span>: <span style="color:#e6db74">&#34;arn:aws:iam::*:role/aws-service-role/*&#34;</span>
-    <span style="color:#f92672">}</span>,
-    <span style="color:#f92672">{</span>
-     <span style="color:#e6db74">&#34;Effect&#34;</span>: <span style="color:#e6db74">&#34;Allow&#34;</span>,
-      <span style="color:#e6db74">&#34;Action&#34;</span>: <span style="color:#f92672">[</span>
-        <span style="color:#e6db74">&#34;ec2:DescribeAccountAttributes&#34;</span>,
-        <span style="color:#e6db74">&#34;ec2:DescribeInternetGateways&#34;</span>
-      <span style="color:#f92672">]</span>,
-      <span style="color:#e6db74">&#34;Resource&#34;</span>: <span style="color:#e6db74">&#34;*&#34;</span>
-    <span style="color:#f92672">}</span>
-  <span style="color:#f92672">]</span>
+  <span style=color:#f92672>[</span>
+    <span style=color:#f92672>{</span>
+      <span style=color:#e6db74>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+      <span style=color:#e6db74>&#34;Action&#34;</span>: <span style=color:#e6db74>&#34;iam:CreateServiceLinkedRole&#34;</span>,
+      <span style=color:#e6db74>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:iam::*:role/aws-service-role/*&#34;</span>
+    <span style=color:#f92672>}</span>,
+    <span style=color:#f92672>{</span>
+     <span style=color:#e6db74>&#34;Effect&#34;</span>: <span style=color:#e6db74>&#34;Allow&#34;</span>,
+      <span style=color:#e6db74>&#34;Action&#34;</span>: <span style=color:#f92672>[</span>
+        <span style=color:#e6db74>&#34;ec2:DescribeAccountAttributes&#34;</span>,
+        <span style=color:#e6db74>&#34;ec2:DescribeInternetGateways&#34;</span>
+      <span style=color:#f92672>]</span>,
+      <span style=color:#e6db74>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;*&#34;</span>
+    <span style=color:#f92672>}</span>
+  <span style=color:#f92672>]</span>
 
-  kops update cluster <span style="color:#e6db74">${</span>NAME<span style="color:#e6db74">}</span> --yes</code></pre></div>
-<p>7) Helm installation and configuration of Tiller</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat <span style="color:#e6db74">&lt;&lt;EOF | kubectl create -f -
-</span><span style="color:#e6db74">apiVersion: v1
-</span><span style="color:#e6db74">kind: ServiceAccount
-</span><span style="color:#e6db74">metadata:
-</span><span style="color:#e6db74"> name: tiller
-</span><span style="color:#e6db74"> namespace: kube-system
-</span><span style="color:#e6db74">---
-</span><span style="color:#e6db74">apiVersion: rbac.authorization.k8s.io/v1
-</span><span style="color:#e6db74">kind: ClusterRoleBinding
-</span><span style="color:#e6db74">metadata:
-</span><span style="color:#e6db74"> name: tiller
-</span><span style="color:#e6db74">roleRef:
-</span><span style="color:#e6db74"> apiGroup: rbac.authorization.k8s.io
-</span><span style="color:#e6db74"> kind: ClusterRole
-</span><span style="color:#e6db74"> name: cluster-admin
-</span><span style="color:#e6db74">subjects:
-</span><span style="color:#e6db74"> - kind: ServiceAccount
-</span><span style="color:#e6db74"> name: tiller
-</span><span style="color:#e6db74"> namespace: kube-system
-</span><span style="color:#e6db74">EOF</span>
+  kops update cluster <span style=color:#e6db74>${</span>NAME<span style=color:#e6db74>}</span> --yes
+</code></pre></div><ol start=7><li>Helm installation and configuration of Tiller</li></ol><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>
+cat <span style=color:#e6db74>&lt;&lt;EOF | kubectl create -f -
+</span><span style=color:#e6db74>apiVersion: v1
+</span><span style=color:#e6db74>kind: ServiceAccount
+</span><span style=color:#e6db74>metadata:
+</span><span style=color:#e6db74> name: tiller
+</span><span style=color:#e6db74> namespace: kube-system
+</span><span style=color:#e6db74>---
+</span><span style=color:#e6db74>apiVersion: rbac.authorization.k8s.io/v1
+</span><span style=color:#e6db74>kind: ClusterRoleBinding
+</span><span style=color:#e6db74>metadata:
+</span><span style=color:#e6db74> name: tiller
+</span><span style=color:#e6db74>roleRef:
+</span><span style=color:#e6db74> apiGroup: rbac.authorization.k8s.io
+</span><span style=color:#e6db74> kind: ClusterRole
+</span><span style=color:#e6db74> name: cluster-admin
+</span><span style=color:#e6db74>subjects:
+</span><span style=color:#e6db74> - kind: ServiceAccount
+</span><span style=color:#e6db74> name: tiller
+</span><span style=color:#e6db74> namespace: kube-system
+</span><span style=color:#e6db74>EOF</span>
 
-helm init --service-account tiller --upgrade</code></pre></div>
-</div>
-
-  
-<footer class='entry-footer'>
-  <div class='container sep-before'><div class='categories'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M22,19a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V5A2,2,0,0,1,4,3H9l2,3h9a2,2,0,0,1,2,2Z"/>
-  
-</svg>
-<span class='screen-reader-text'>Categories: </span><a class='category' href='/categories/kubernetes/'>kubernetes</a></div>
-<div class='tags'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M20.59,13.41l-7.17,7.17a2,2,0,0,1-2.83,0L2,12V2H12l8.59,8.59A2,2,0,0,1,20.59,13.41Z"/>
-  <line x1="7" y1="7" x2="7" y2="7"/>
-  
-</svg>
-<span class='screen-reader-text'>Tags: </span><a class='tag' href='/tags/kops/'>kops</a>, <a class='tag' href='/tags/amazon/'>amazon</a></div>
-
-  </div>
-</footer>
-
-
-</article>
-
-<nav class='entry-nav'>
-  <div class='container'><div class='prev-entry sep-before'>
-      <a href='/blog/windows/'>
-        <span aria-hidden='true'><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <line x1="20" y1="12" x2="4" y2="12"/>
-  <polyline points="10 18 4 12 10 6"/>
-  
-</svg>
- Previous</span>
-        <span class='screen-reader-text'>Previous post: </span>Deploying Windows Apps with Kubernetes</a>
-    </div></div>
-</nav>
-
-
-
-
-      </main>
-
-      <footer id='footer' class='footer'>
-        <div class='container sep-before'><section class='widget widget-social_menu sep-after'><nav aria-label='Social Menu'>
-    <ul><li>
-        <a href='https://github.com/sylus' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Github account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://twitter.com/william_hearn' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Twitter account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='mailto:william.hearn@canada.ca' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Contact via Email</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-  <polyline points="22,6 12,13 2,6"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://gitlab.com/sylus' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Gitlab account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z"/>
-  
-</svg>
-</a>
-      </li><li>
-        <a href='https://linkedin.com/in/william-hearn-78688227' target='_blank' rel='noopener'>
-          <span class='screen-reader-text'>Open Linkedin account in new tab</span><svg class='icon' viewbox='0 0 24 24' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' aria-hidden='true'>
-  
-  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-  <rect x="2" y="9" width="4" height="12"/>
-  <circle cx="4" cy="4" r="2"/>
-  
-</svg>
-</a>
-      </li></ul>
-  </nav>
-</section><div class='copyright'>
-  <p> &copy; 2017-2019 Sylus </p>
-</div>
-
-        </div>
-      </footer>
-
-    </div>
-  </div><script>window.__assets_js_src="/assets/js/"</script>
-
-<script src='/assets/js/main.67d669ac.js'></script><script src='/js/custom.js'></script>
-
-</body>
-
-</html>
-
+helm init --service-account tiller --upgrade
+</code></pre></div></div><footer class=entry-footer><div class="container sep-before"><div class=categories><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5A2 2 0 014 3H9l2 3h9a2 2 0 012 2z"/></svg><span class=screen-reader-text>Categories: </span><a class=category href=/categories/kubernetes/>kubernetes</a></div><div class=tags><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83.0L2 12V2H12l8.59 8.59A2 2 0 0120.59 13.41z"/><line x1="7" y1="7" x2="7" y2="7"/></svg><span class=screen-reader-text>Tags: </span><a class=tag href=/tags/kops/>kops</a>, <a class=tag href=/tags/amazon/>amazon</a></div></div></footer></article></main><footer id=footer class=footer><div class="container sep-before"><section class="widget widget-social_menu sep-after"><nav aria-label="Social Menu"><ul><li><a href=https://github.com/sylus target=_blank rel=noopener><span class=screen-reader-text>Open Github account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77a5.44 5.44.0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg></a></li><li><a href=https://twitter.com/william_hearn target=_blank rel=noopener><span class=screen-reader-text>Open Twitter account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M23 3a10.9 10.9.0 01-3.14 1.53 4.48 4.48.0 00-7.86 3v1A10.66 10.66.0 013 4s-4 9 5 13a11.64 11.64.0 01-7 2c9 5 20 0 20-11.5a4.5 4.5.0 00-.08-.83A7.72 7.72.0 0023 3z"/></svg></a></li><li><a href=mailto:william.hearn@canada.ca target=_blank rel=noopener><span class=screen-reader-text>Contact via Email</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1.0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1.0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a></li><li><a href=https://gitlab.com/sylus target=_blank rel=noopener><span class=screen-reader-text>Open Gitlab account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M22.65 14.39 12 22.13 1.35 14.39a.84.84.0 01-.3-.94l1.22-3.78 2.44-7.51A.42.42.0 014.82 2a.43.43.0 01.58.0.42.42.0 01.11.18l2.44 7.49h8.1l2.44-7.51A.42.42.0 0118.6 2a.43.43.0 01.58.0.42.42.0 01.11.18l2.44 7.51L23 13.45a.84.84.0 01-.35.94z"/></svg></a></li><li><a href=https://linkedin.com/in/william-hearn-78688227 target=_blank rel=noopener><span class=screen-reader-text>Open Linkedin account in new tab</span><svg class="icon" viewbox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></li></ul></nav></section><div class=copyright><p>&copy; 2017-2020 Sylus</p></div></div></footer></div></div><script>window.__assets_js_src="/assets/js/"</script><script src=/assets/js/main.c3bcf2df.js></script><script src=/js/custom.js></script></body></html>
